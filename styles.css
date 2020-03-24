@@ -1,5 +1,13 @@
-@tailwind base;
+@variants ie, {
+    .example-box {
+        font-color: blue;
+        border: 1px dotted green;
+        font-family: 'Comic Sans';
+    }
+}
 
-@tailwind components;
+/*@tailwind base;*/
+
+/*@tailwind components;*/
 
 @tailwind utilities;
