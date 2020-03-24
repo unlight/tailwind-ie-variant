@@ -21,17 +21,15 @@ module.exports = {
                 });
             });
         },
-        // addUtilities example
-        ({ addUtilities, addComponents, addVariant, e, theme }) => {},
     ],
     variants: {
-        display: ['ie', 'responsive'],
-        fontSize: false,
-        fontStyle: false,
-        fontWeight: false,
-        // fontSize: ['ie', 'responsive'],
-        // fontStyle: ['ie', 'responsive'],
-        // fontWeight: ['ie', 'responsive'],
+        display: ['responsive', 'ie'],
+        // fontSize: false,
+        // fontStyle: false,
+        // fontWeight: false,
+        fontSize: ['ie', 'responsive'],
+        fontStyle: ['ie', 'responsive'],
+        fontWeight: ['ie', 'responsive'],
         textColor: false,
         // textColor: ['ie'],
         accessibility: false,

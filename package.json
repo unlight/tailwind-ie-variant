@@ -6,12 +6,16 @@
   "scripts": {
     "build:w": "watchexec -w . \"npm run build\"",
     "build": "tailwind build styles.css -o ~output.css",
+    "postcss:build": "postcss styles.css -o ~output.css",
+    "postcss:w": "watchexec -w . \"npm run postcss:build\"",
     "build:d": "node --inspect-brk node_modules/tailwindcss/lib/cli.js build styles.css -o ~output.css"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "lodash": "^4.17.15",
+    "postcss-cli": "^7.1.0",
+    "postcss-nesting": "^7.0.1",
     "prettier": "^2.0.2",
     "tailwindcss": "^1.2.0",
     "watchexec-bin": "^1.0.0"

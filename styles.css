@@ -1,7 +1,5 @@
-@variants ie, {
+@variants ie {
     .example-box {
-        font-color: blue;
-        border: 1px dotted green;
         font-family: 'Comic Sans';
     }
 }
