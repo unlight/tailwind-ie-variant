@@ -1,0 +1,19 @@
+{
+  "name": "tailwind-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:w": "watchexec -w . \"npm run build\"",
+    "build": "tailwind build styles.css -o ~output.css",
+    "build:d": "node --inspect-brk node_modules/tailwindcss/lib/cli.js build styles.css -o ~output.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lodash": "^4.17.15",
+    "prettier": "^2.0.2",
+    "tailwindcss": "^1.2.0",
+    "watchexec-bin": "^1.0.0"
+  }
+}
