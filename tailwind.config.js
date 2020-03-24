@@ -4,7 +4,7 @@ module.exports = {
     theme: {
         extend: {},
     },
-    plugins: [require('./plugin')()],
+    plugins: [require('./src')()],
     variants: {
         display: ['responsive', 'ie'],
         // fontSize: false,

@@ -1,0 +1,16 @@
+#!/bin/bash
+PATH="$PWD/node_modules/.bin":$PATH
+set -e
+
+build() {
+    set -x
+    rm -rfv dist
+    cp -rfv src dist
+    cp -v README.md LICENSE package.json dist
+    cd dist
+    /usr/bin/find . -name '*.spec.js' | xargs rm -rvf
+    cd ..
+    set +x
+}
+
+"$@"
