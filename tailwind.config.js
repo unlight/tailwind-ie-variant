@@ -4,24 +4,7 @@ module.exports = {
     theme: {
         extend: {},
     },
-    plugins: [
-        // addVariant example
-        ({ addUtilities, addComponents, addVariant, e, theme }) => {
-            addVariant('ie', ({ container, separator }) => {
-                // http://api.postcss.org/
-                // Create at-rule css hack for IE10+
-                const mediaRule = postcss.atRule({
-                    name: 'media',
-                    params: 'screen and (-ms-high-contrast: active), (-ms-high-contrast: none)',
-                });
-                mediaRule.append(container.nodes);
-                container.append(mediaRule);
-                mediaRule.walkRules((rule) => {
-                    rule.selector = `.${e(`ie${separator}${rule.selector.slice(1)}`)}`;
-                });
-            });
-        },
-    ],
+    plugins: [require('./plugin')()],
     variants: {
         display: ['responsive', 'ie'],
         // fontSize: false,

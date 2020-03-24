@@ -1,7 +1,7 @@
 {
-  "name": "tailwind-plugin",
-  "version": "1.0.0",
-  "description": "",
+  "name": "tailwind-ie-variant",
+  "version": "0.0.0-dev",
+  "description": "Tailwind CSS plugin to add variants (css hacks) for IE10+",
   "main": "index.js",
   "scripts": {
     "build:w": "watchexec -w . \"npm run build\"",
@@ -10,10 +10,8 @@
     "postcss:w": "watchexec -w . \"npm run postcss:build\"",
     "build:d": "node --inspect-brk node_modules/tailwindcss/lib/cli.js build styles.css -o ~output.css"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
-    "lodash": "^4.17.15",
     "postcss-cli": "^7.1.0",
     "postcss-nesting": "^7.0.1",
     "prettier": "^2.0.2",
