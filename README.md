@@ -31,3 +31,29 @@ so `sm:ie:block` will not work.
 
 To make it work, you need use tailwind as postcss plugin
 with [postcss-nesting](https://github.com/jonathantneal/postcss-nesting) plugin.
+
+## Example
+
+Input:
+
+```css
+@variants ie {
+    .example {
+        font-family: 'Comic Sans';
+    }
+}
+```
+
+Output:
+
+```css
+.example {
+    font-family: 'Comic Sans';
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .ie:example {
+        font-family: 'Comic Sans';
+    }
+}
+```
