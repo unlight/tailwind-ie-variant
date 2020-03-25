@@ -4,7 +4,20 @@
   "description": "Tailwind CSS plugin to add variants (css hacks) for IE10+",
   "main": "index.js",
   "license": "MIT",
+  "keywords": [
+    "tailwindcss",
+    "tailwind-plugin"
+  ],
+  "bugs": {
+    "url": "https://github.com/unlight/tailwind-ie-variant/issues"
+  },
+  "homepage": "https://github.com/unlight/tailwind-ie-variant#readme",
   "scripts": {
+    "test": "npm run test:cov",
+    "test:r": "mocha --timeout 8s src/**/*.spec.js",
+    "test:w": "mocha --watch-extensions js --watch --timeout 8s src/**/*.spec.js",
+    "test:d": "node --inspect-brk node_modules/mocha/bin/_mocha --no-timeouts --watch-extensions ts --watch src/**/*.spec.js",
+    "test:cov": "c8 npm run test:r",
     "build": "sh Taskfile build",
     "tailwind:build": "tailwind build styles.css -o ~output.css",
     "postcss:build": "postcss styles.css -o ~output.css",
@@ -12,13 +25,21 @@
     "dev:d": "node --inspect-brk node_modules/tailwindcss/lib/cli.js build styles.css -o ~output.css"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^5.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "c8": "^7.1.0",
+    "common-tags": "^1.8.0",
+    "mocha": "^7.1.1",
     "postcss-cli": "^7.1.0",
     "postcss-nesting": "^7.0.1",
     "prettier": "^2.0.2",
-    "tailwindcss": "^1.2.0",
-    "@semantic-release/changelog": "^5.0.0",
-    "@semantic-release/git": "^9.0.0",
     "semantic-release": "^17.0.4",
+    "tailwindcss": "^1.2.0",
     "watchexec-bin": "^1.0.0"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unlight/tailwind-ie-variant.git"
   }
 }

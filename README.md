@@ -5,7 +5,7 @@ Tailwind CSS plugin to add variants (css hacks) for IE10+
 ## Install
 
 ```sh
-npm i -D tailwind-ie-variant
+npm install tailwind-ie-variant --save-dev
 ```
 
 Update your `tailwind.config.js`
@@ -19,13 +19,15 @@ variants: {
 ## Usage
 
 ```html
-<div class="ie:italic ie:text-sm border sm:ie:font-bold">
-    Example box text
-</div>
 <div class="hidden ie:block">Only IE10+ see me</div>
 ```
 
-As tailwind plugin this plugin is working partially, only first level variants will work.
-ie:italic sm:ie:font-bold
+As a tailwind plugin the plugin is working partially, only first level variants will work,
+e.g. `ie:block`.
+There is an issue with other tailwind variants,
+since css hack `@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)` is used,
+the result is nested media queries wich is not supported in IE,
+so `sm:ie:block` will not work.
 
-This plugin is supposed to work with [postcss-nesting](https://github.com/jonathantneal/postcss-nesting)
+To make it work, you need use tailwind as postcss plugin
+with [postcss-nesting](https://github.com/jonathantneal/postcss-nesting) plugin.
