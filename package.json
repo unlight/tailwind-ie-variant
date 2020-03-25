@@ -5,6 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "keywords": [
+    "tailwindcss-plugin",
     "tailwindcss",
     "tailwind-plugin"
   ],
@@ -17,7 +18,7 @@
     "test:r": "mocha --timeout 8s src/**/*.spec.js",
     "test:w": "mocha --watch-extensions js --watch --timeout 8s src/**/*.spec.js",
     "test:d": "node --inspect-brk node_modules/mocha/bin/_mocha --no-timeouts --watch-extensions ts --watch src/**/*.spec.js",
-    "test:cov": "c8 npm run test:r",
+    "test:cov": "c8 --exclude **/*.spec.js npm run test:r",
     "build": "sh Taskfile build",
     "tailwind:build": "tailwind build styles.css -o ~output.css",
     "postcss:build": "postcss styles.css -o ~output.css",
