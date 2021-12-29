@@ -8,11 +8,17 @@ Tailwind CSS plugin to add variants (css hacks) for IE10+
 npm install tailwind-ie-variant --save-dev
 ```
 
-Update your `tailwind.config.js`
+Add the plugin to your `tailwind.config.js`:
 
 ```js
-variants: {
-    display: ['responsive', 'ie'],
+const tailwindIeVariant = require('tailwind-ie-variant');
+
+module.exports = {
+    // ...
+    plugins: [tailwindIeVariant()],
+    variants: {
+        display: ['responsive', 'ie'],
+    }
 }
 ```
 
