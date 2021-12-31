@@ -16,9 +16,6 @@ const tailwindIeVariant = require('tailwind-ie-variant');
 module.exports = {
     // ...
     plugins: [tailwindIeVariant()],
-    variants: {
-        display: ['responsive', 'ie'],
-    },
 };
 ```
 

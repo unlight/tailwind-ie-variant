@@ -3,17 +3,15 @@ const postcss = require('postcss');
 const tailwindcss = require('tailwindcss');
 const defaultConfig = require('tailwindcss/defaultConfig');
 const { oneLine, stripIndents } = require('common-tags');
-const postcssNesting = require('postcss-nesting');
-const postcssNested = require('postcss-nested');
 const tailwindcssNesting = require('tailwindcss/nesting');
 
 const plugin = require('./index.js');
 
-async function process(input) {
+async function process(input, { safelist = [] }) {
     const config = {
         ...defaultConfig,
         // content: [{ raw: '<div class="example">', extension: 'html' }],
-        safelist: ['example', 'ie:example', 'sm:ie:block'],
+        safelist,
         plugins: [plugin()],
     };
     return postcss([tailwindcss(config)])
@@ -28,11 +26,15 @@ it('smoke', () => {
     expect(typeof plugin).toBe('function');
 });
 
-it('generate ie variant', async () => {
-    const input = `@tailwind utilities; .example { font-family: 'Comic Sans'; }`;
-    const output = oneLine`${await process(input)}`;
+it('ie variant', async () => {
+    const input = `@tailwind utilities`;
+    const output = stripIndents`${await process(input, { safelist: ['ie:block'] })}`;
     expect(output).toContain(
-        `@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .ie\\:example { font-family: 'Comic Sans'; } }`,
+        stripIndents`
+            .ie\\:block {
+                display: block
+            }
+        `,
     );
 });
 
