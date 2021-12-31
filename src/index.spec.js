@@ -3,7 +3,6 @@ const postcss = require('postcss');
 const tailwindcss = require('tailwindcss');
 const defaultConfig = require('tailwindcss/defaultConfig');
 const { oneLine, stripIndents } = require('common-tags');
-const tailwindcssNesting = require('tailwindcss/nesting');
 
 const plugin = require('./index.js');
 
@@ -26,7 +25,7 @@ it('smoke', () => {
     expect(typeof plugin).toBe('function');
 });
 
-it('ie variant', async () => {
+it('ie block', async () => {
     const input = `@tailwind utilities`;
     const output = stripIndents`${await process(input, { safelist: ['ie:block'] })}`;
     expect(output).toContain(
@@ -38,13 +37,34 @@ it('ie variant', async () => {
     );
 });
 
+it('ie variant', async () => {
+    const input = `
+        @tailwind utilities;
+        @layer utilities {
+            .example {
+                font-family: 'Comic Sans';
+            }
+        }
+    `;
+    const output = stripIndents`${await process(input, { safelist: ['ie:example'] })}`;
+    expect(output).toContain(
+        '@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)',
+    );
+    expect(output).toContain(
+        stripIndents`
+            .ie\\:example {
+                font-family: 'Comic Sans';
+            }
+        `,
+    );
+});
+
 it.skip('ie for small screen', async () => {
     const input = stripIndents`
         @tailwind utilities;
         .example { font-family: 'Comic Sans'; }
     `;
-    const output = await process(input);
-    // const output = stripIndents`${await process(input)}`;
+    const output = stripIndents`${await process(input, { safelist: ['sm:ie:block', 'ie:block'] })}`;
     console.log('output', output);
     // expect(output).toContain(
     //     `@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .ie\\:example { font-family: 'Comic Sans'; } }`,
