@@ -18,8 +18,8 @@ module.exports = {
     plugins: [tailwindIeVariant()],
     variants: {
         display: ['responsive', 'ie'],
-    }
-}
+    },
+};
 ```
 
 ## Usage
@@ -34,9 +34,6 @@ There is an issue with other tailwind variants,
 since css hack `@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)` is used,
 the result is nested media queries wich is not supported in IE,
 so `sm:ie:block` will not work.
-
-To make it work, you need use tailwind as postcss plugin
-with [postcss-nesting](https://github.com/jonathantneal/postcss-nesting) plugin.
 
 ## Example
 
