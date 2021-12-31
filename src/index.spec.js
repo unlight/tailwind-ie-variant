@@ -1,47 +1,34 @@
-const assert = require('assert');
+const expect = require('expect');
 const postcss = require('postcss');
 const tailwindcss = require('tailwindcss');
 const defaultConfig = require('tailwindcss/defaultConfig');
-const { stripIndents } = require('common-tags');
+const { oneLine } = require('common-tags');
 
-const plugin = require('.');
+const plugin = require('./index.js');
 
 async function process(input) {
     const config = {
         ...defaultConfig,
+        // content: [{ raw: '<div class="example">', extension: 'html' }],
+        safelist: ['example', 'ie:example'],
         plugins: [plugin()],
     };
     return postcss([tailwindcss(config)])
         .process(input, { from: undefined })
         .then((result) => {
-            assert(result.warnings().length === 0);
+            expect(result.warnings()).toHaveLength(0);
             return result.css;
         });
 }
 
 it('smoke', () => {
-    assert(typeof plugin === 'function');
+    expect(typeof plugin).toBe('function');
 });
 
 it('generate ie variant', async () => {
-    const input = stripIndents`@variants ie {
-        .example-box {
-            font-family: 'Comic Sans';
-        }
-    }`;
-    const output = stripIndents`${await process(input)}`;
-    assert.equal(
-        output,
-        stripIndents`
-.example-box {
-  font-family: 'Comic Sans';
-}
-
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-  .ie\\:example-box {
-    font-family: 'Comic Sans';
-  }
-}
-`,
+    const input = `@tailwind utilities; .example { font-family: 'Comic Sans'; }`;
+    const output = oneLine`${await process(input)}`;
+    expect(output).toContain(
+        `@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .ie\\:example { font-family: 'Comic Sans'; } }`,
     );
 });
