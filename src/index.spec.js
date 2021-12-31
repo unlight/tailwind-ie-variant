@@ -2,7 +2,10 @@ const expect = require('expect');
 const postcss = require('postcss');
 const tailwindcss = require('tailwindcss');
 const defaultConfig = require('tailwindcss/defaultConfig');
-const { oneLine } = require('common-tags');
+const { oneLine, stripIndents } = require('common-tags');
+const postcssNesting = require('postcss-nesting');
+const postcssNested = require('postcss-nested');
+const tailwindcssNesting = require('tailwindcss/nesting');
 
 const plugin = require('./index.js');
 
@@ -10,7 +13,7 @@ async function process(input) {
     const config = {
         ...defaultConfig,
         // content: [{ raw: '<div class="example">', extension: 'html' }],
-        safelist: ['example', 'ie:example'],
+        safelist: ['example', 'ie:example', 'sm:ie:block'],
         plugins: [plugin()],
     };
     return postcss([tailwindcss(config)])
@@ -31,4 +34,17 @@ it('generate ie variant', async () => {
     expect(output).toContain(
         `@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .ie\\:example { font-family: 'Comic Sans'; } }`,
     );
+});
+
+it.skip('ie for small screen', async () => {
+    const input = stripIndents`
+        @tailwind utilities;
+        .example { font-family: 'Comic Sans'; }
+    `;
+    const output = await process(input);
+    // const output = stripIndents`${await process(input)}`;
+    console.log('output', output);
+    // expect(output).toContain(
+    //     `@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { .ie\\:example { font-family: 'Comic Sans'; } }`,
+    // );
 });
